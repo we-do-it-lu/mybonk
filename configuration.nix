@@ -6,7 +6,7 @@
 {
   imports = lib.optional (builtins.pathExists ./do-userdata.nix) ./do-userdata.nix ++ 
     [
-      
+      (fetchTarball { url="https://github.com/msteen/nixos-vscode-server/tarball/master"; sha256="1rq8mrlmbzpcbv9ys0x88alw30ks70jlmvnfr2j8v830yy5wvw7h"; } )
     ];
 
   # If you use an SSD (which you most probably are) it may be useful to enable TRIM support and set filesystem flags for best performance.
@@ -145,7 +145,7 @@
     dataDir = "/data/bitcoind";
     #signet = true;
     tor.enforce = false;
-    tor.proxy = false;
+    tor.proxy = true;
     extraConfig = ''
       mempoolfullrbf=1
       #debug=true
@@ -182,7 +182,7 @@
     enable = true; 
     dataDir = "/data/clightning"; 
     tor.enforce = false;
-    tor.proxy = false;
+    tor.proxy = true;
     extraConfig = ''
       #FIXME below choose an alias name of your node
       alias=MYBONK-SIGNET-2
@@ -190,7 +190,7 @@
     plugins = {
        prometheus.enable = true;
        monitor.enable = true;
-       summary.enable = true;  
+       summary.enable = true;
     };
     #replication = {
      # enable = true; # clightning database replication. Ref nix-bitcoin documentation 
@@ -245,14 +245,16 @@
   };
 
 
-#networking.firewall.allowedTCPPorts = [
+networking.firewall.allowedTCPPorts = [
 #    config.services.clightning-rest.port
-#    config.services.bitcoind.rpc.port
-#    config.services.rtl.port
-#    #config.services.uptime-kuma.settings.PORT
+    #config.services.bitcoind.rpc.port
+    config.services.rtl.port
+#    config.services.uptime-kuma.settings.PORT
 #    3300
-#    config.services.fulcrum.port
-#  ];
+    config.services.fulcrum.port
+];
+
+  services.vscode-server.enable = true;
 
   services.mempool = {
     enable = true;

@@ -21,8 +21,10 @@
            system = "x86_64-linux";
          
           modules = [
+            
             # Import the default NixOS modules from nix-bitcoin
             nix-bitcoin.nixosModules.default
+
             # Optional: Import secure-node and/or hardened presets
             (nix-bitcoin + "/modules/presets/secure-node.nix")
             #(nix-bitcoin + "/modules/presets/hardened.nix")
