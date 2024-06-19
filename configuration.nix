@@ -186,6 +186,7 @@
     extraConfig = ''
       #FIXME below choose an alias name of your node
       alias=MYBONK-SIGNET-2
+      large-channels
     '';
     plugins = {
        prometheus.enable = true;
