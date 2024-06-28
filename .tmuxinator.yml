@@ -42,9 +42,9 @@ name: console
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
-pre_window: 
-  - ssh operator@<%= @settings["node"] %>
-
+pre_window:
+  #- [ -n "<%= @settings["node"] %>" ] && ssh operator@<%= @settings["node"] %> || echo "Error: 'node' parameter not provided"
+  - echo "toto"
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
 
